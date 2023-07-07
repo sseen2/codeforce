@@ -1,3 +1,5 @@
+// https://codeforces.com/contest/1846/problem/B
+
 import java.util.*;
 import java.io.*;
 public class problemB {
@@ -7,6 +9,7 @@ public class problemB {
 		while (num-- > 0) {
 			char[][] t = new char[3][3];
 
+			// tic-tac-toe 저장
 			for(int i = 0; i < 3; i++) {
 				char[] c = in.readLine().toCharArray();
 				for (int j = 0; j < 3; j++) {
@@ -28,16 +31,16 @@ public class problemB {
 					result = true;
 					break;
 				}
-				else if ((t[0][0] == t[1][1] && t[1][1] == t[2][2] && t[0][0] != '.')
-						|| (t[2][0] == t[1][1] && t[1][1] == t[0][2] && t[0][2] != '.')) {
-					// 대각선
-					System.out.println(t[1][1]);
-					result = true;
-					break;
-				}
+			}
+			if ((t[0][0] == t[1][1] && t[1][1] == t[2][2] && t[0][0] != '.')
+				|| (t[2][0] == t[1][1] && t[1][1] == t[0][2] && t[0][2] != '.')) {
+				// 대각선
+				System.out.println(t[1][1]);
+				result = true;
 			}
 			
 			if (!result) {
+				// 비겼을 때
 				System.out.println("DRAW");
 			}
 		}
