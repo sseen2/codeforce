@@ -1,3 +1,5 @@
+// https://codeforces.com/contest/1846/problem/C
+
 import java.util.*;
 import java.io.*;
 public class problemC {
@@ -9,7 +11,7 @@ public class problemC {
 			int n = Integer.parseInt(s[0]); // 참가자 수
 			int m = Integer.parseInt(s[1]); // 문제 수
 			int h = Integer.parseInt(s[2]); // 총 시간
-			int[][] time = new int[n][m];
+			int[][] time = new int[n][m]; // 참가자들이 문제 푸는데 걸리는 시간 저장
 			int[][] score = new int[n][2];
 
 			for (int i = 0; i < n; i++) {
@@ -19,26 +21,18 @@ public class problemC {
 				}
 			}
 			
+			// 혼자 참여한 경우 1 출력 후 continue
 			if (n == 1) {
 				System.out.println(1);
 				continue;
 			}
-
-			// 정렬
+			
+			// 적게 걸리는 시간순으로 정렬 (오름차순)
 			for (int i = 0; i < n; i++) {
-				int temp = 0;
-				for (int a = 0; a < m - 1; a++) {
-					for (int j = a + 1; j < m; j++) {
-						if (time[i][a] > time[i][j]) {
-							temp = time[i][a];
-							time [i][a] = time[i][j];
-							time[i][j] = temp;
-
-						}
-					}
-				}
+				Arrays.sort(time[i]);
 			}
 
+//			배열 출력
 //			for (int i = 0; i < n; i++) {
 //				for (int j = 0; j < m; j++) {
 //					System.out.print(time[i][j] + " ");
@@ -54,11 +48,12 @@ public class problemC {
 						break;
 					}
 					timesum += time[i][j];
-					score[i][0] += timesum;
-					score[i][1] += 1;
+					score[i][0] += timesum; // 패널티
+					score[i][1] += 1;		// 푼 문제 수
 				}
 			}
 			
+//			점수 출력
 //			for (int i = 0; i < n; i++) {
 //				for (int j = 0; j < 2; j++) {
 //					System.out.print(score[i][j] + " ");
@@ -69,6 +64,7 @@ public class problemC {
 			
 			int rank = 1;
 			for (int i = 1; i < n; i++) {
+				// [][0] -> 패널티		[][1] -> 푼 문제 수
 				if ((score[0][1] == score[i][1] && score[0][0] > score[i][0]) 
 					|| score[0][1] < score[i][1]) {
 					rank++;
